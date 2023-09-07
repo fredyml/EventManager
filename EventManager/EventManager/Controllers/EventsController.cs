@@ -1,4 +1,5 @@
-﻿using EventManager.Application.Interfaces;
+﻿using EventManager.Application.Dtos;
+using EventManager.Application.Interfaces;
 using EventManager.Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -29,12 +30,26 @@ namespace EventManager.Controllers
         /// <param name="eventLog">El evento a añadir.</param>
         /// <returns>El evento que fue añadido.</returns>
         [HttpPost]
-        public async Task<IActionResult> AddEvent(EventLog eventLog)
+        public async Task<IActionResult> AddEvent(EventLogDto eventLogDto)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var eventLog = new EventLog
+            {
+                Date = eventLogDto.Date,
+                Description = eventLogDto.Description,
+                EventTypeId = eventLogDto.EventTypeId
+            };
+
             await _repository.AddAsync(eventLog);
             await _repository.SaveChangesAsync();
-            return Ok(eventLog);
+
+            return Ok("Evento registrado de manera exitosa");
         }
+
 
         /// <summary>
         /// Obtiene eventos de la base de datos. Puede filtrarse por tipo de evento y/o rango de fechas.

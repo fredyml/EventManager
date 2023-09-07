@@ -12,6 +12,10 @@ namespace EventManager.Infrastructure.Persistence
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<EventLog>()
+                .Property(e => e.Id)
+                .ValueGeneratedOnAdd();
+
+            modelBuilder.Entity<EventLog>()
                 .HasOne(e => e.EventType)
                 .WithMany(et => et.EventLogs)
                 .HasForeignKey(e => e.EventTypeId)
