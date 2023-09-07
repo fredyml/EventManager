@@ -70,23 +70,26 @@ namespace EventManager.Controllers
 
             var query = _repository.GetEvents();
 
-            if (eventSearchDto.StartDate.HasValue && eventSearchDto.EndDate.HasValue)
-            {
-                if (eventSearchDto.EventTypeId > 0)
-                {
-                    query = query.Where(e => e.EventTypeId == eventSearchDto.EventTypeId);
-                }
+            bool hasEventTypeIdFilter = eventSearchDto.EventTypeId > 0;
+            bool hasBothDateFilters = eventSearchDto.StartDate.HasValue && eventSearchDto.EndDate.HasValue;
 
-                query = query.Where(e => e.Date >= eventSearchDto.StartDate.Value && e.Date <= eventSearchDto.EndDate.Value);
-
-                var results = await query.ToListAsync();
-                return Ok(results);
-            }
-            else
+            if (!hasEventTypeIdFilter && !hasBothDateFilters)
             {
                 return Ok(new List<EventLog>());
             }
-        }
 
+            if (hasEventTypeIdFilter)
+            {
+                query = query.Where(e => e.EventTypeId == eventSearchDto.EventTypeId);
+            }
+
+            if (hasBothDateFilters)
+            {
+                query = query.Where(e => e.Date >= eventSearchDto.StartDate.Value && e.Date <= eventSearchDto.EndDate.Value);
+            }
+
+            var results = await query.ToListAsync();
+            return Ok(results);
+        }
     }
 }
