@@ -13,7 +13,7 @@ Este proyecto está dividido en dos partes: el frontend y el backend.
 
 ## Base de datos
 
-La base de datos está implementada en SQL Server. En el repositorio del backend, encontrarás un archivo llamado `BaseDeDatosPruebaTecnica`. Este archivo es un backup de la base de datos y deberá ser restaurado en tu instancia local de SQL Server antes de ejecutar el proyecto.
+La base de datos está implementada en SQL Server. En el repositorio del backend, encontrarás un archivo llamado `BaseDeDatosPruebaTecnica`. Este archivo es un backup de la base de datos y deberá ser restaurado en tu instancia local de SQL Server antes de ejecutar el proyecto. La cadena de conexión se ajusta en el appsetting
 
 ## Cómo correr el proyecto
 
