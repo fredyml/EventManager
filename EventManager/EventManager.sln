@@ -3,13 +3,19 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.5.33424.131
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventManager", "EventManager\EventManager.csproj", "{AE77CDF6-061F-407F-A49E-FEBBCA684CBC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventManager", "EventManager\EventManager.csproj", "{AE77CDF6-061F-407F-A49E-FEBBCA684CBC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventManager.Application", "EventManager.Application\EventManager.Application.csproj", "{94094722-7A73-44CE-831C-9B2F1149EF52}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventManager.Application", "EventManager.Application\EventManager.Application.csproj", "{94094722-7A73-44CE-831C-9B2F1149EF52}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventManager.Domain", "EventManager.Domain\EventManager.Domain.csproj", "{85AA3469-7133-48E2-A6C0-C1BBF28F58FB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventManager.Domain", "EventManager.Domain\EventManager.Domain.csproj", "{85AA3469-7133-48E2-A6C0-C1BBF28F58FB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventManager.Infrastructure", "EventManager.Infrastructure\EventManager.Infrastructure.csproj", "{3CB72B5C-2F21-4C4D-9FAB-47F4FCAE6467}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventManager.Infrastructure", "EventManager.Infrastructure\EventManager.Infrastructure.csproj", "{3CB72B5C-2F21-4C4D-9FAB-47F4FCAE6467}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1-Api", "1-Api", "{8847E80D-3040-4118-ADD8-4CB801260598}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "2-Core", "2-Core", "{1C34BBB5-A32B-43B0-B430-A2C08C73F898}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "3-Infra", "3-Infra", "{BA28EDC3-55A5-4E9E-8A74-D788F37A0C48}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -36,6 +42,12 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{AE77CDF6-061F-407F-A49E-FEBBCA684CBC} = {8847E80D-3040-4118-ADD8-4CB801260598}
+		{94094722-7A73-44CE-831C-9B2F1149EF52} = {1C34BBB5-A32B-43B0-B430-A2C08C73F898}
+		{85AA3469-7133-48E2-A6C0-C1BBF28F58FB} = {1C34BBB5-A32B-43B0-B430-A2C08C73F898}
+		{3CB72B5C-2F21-4C4D-9FAB-47F4FCAE6467} = {BA28EDC3-55A5-4E9E-8A74-D788F37A0C48}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {7BD63460-846B-4941-ABDA-306436E57C75}
