@@ -44,23 +44,23 @@ namespace EventManager.Controllers
         /// <param name="endDate">Fecha final del rango (opcional).</param>
         /// <returns>Una lista de eventos que coinciden con los criterios de búsqueda.</returns>
         [HttpGet]
-        public async Task<IActionResult> GetEvents(string eventType, DateTime? startDate, DateTime? endDate)
+        public async Task<IActionResult> GetEvents(int eventTypeId, DateTime? startDate, DateTime? endDate)
         {
             var query = _repository.GetEvents();
 
-            if (!string.IsNullOrEmpty(eventType))
+            if (eventTypeId > 0)
             {
-                query = query.Where(e => e.EventType == eventType);
+                query = query.Where(e => e.EventTypeId == eventTypeId);
             }
 
             if (startDate.HasValue)
             {
-                query = query.Where(e => e.Date >= startDate);
+                query = query.Where(e => e.Date >= startDate.Value);
             }
 
             if (endDate.HasValue)
             {
-                query = query.Where(e => e.Date <= endDate);
+                query = query.Where(e => e.Date <= endDate.Value);
             }
 
             return Ok(await query.ToListAsync());

@@ -1,5 +1,4 @@
 using EventManager.Application.Interfaces;
-using EventManager.Infrastructure;
 using EventManager.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
