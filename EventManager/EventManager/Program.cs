@@ -1,4 +1,5 @@
 using EventManager.Application.Interfaces;
+using EventManager.Filters;
 using EventManager.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
@@ -19,6 +20,11 @@ builder.Services.AddDbContext<RegistrationDbContext>(options =>
        options.UseSqlServer(connectionString));
 
 builder.Services.AddScoped<IEventLogRepository, EventLogRepository>();
+
+builder.Services.AddControllers(options =>
+{
+    options.Filters.Add(new CustomExceptionFilter());
+});
 
 var app = builder.Build();
 
