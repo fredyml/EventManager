@@ -1,4 +1,4 @@
-#Prueba Técnica - Registro de Eventos
+Prueba Técnica - Registro de Eventos
 Este proyecto está dividido en dos partes: el frontend y el backend.
 
 Frontend: Desarrollado en Angular.
