@@ -3,8 +3,6 @@ using EventManager.Application.Interfaces;
 using EventManager.Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Logging;
-using System.ComponentModel.DataAnnotations;
 
 namespace EventManager.Controllers
 {
