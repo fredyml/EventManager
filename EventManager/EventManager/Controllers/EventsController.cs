@@ -3,6 +3,7 @@ using EventManager.Application.Interfaces;
 using EventManager.Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using System.ComponentModel.DataAnnotations;
 
 namespace EventManager.Controllers
@@ -69,22 +70,23 @@ namespace EventManager.Controllers
 
             var query = _repository.GetEvents();
 
-            if (eventSearchDto.EventTypeId > 0)
+            if (eventSearchDto.StartDate.HasValue && eventSearchDto.EndDate.HasValue)
             {
-                query = query.Where(e => e.EventTypeId == eventSearchDto.EventTypeId);
-            }
+                if (eventSearchDto.EventTypeId > 0)
+                {
+                    query = query.Where(e => e.EventTypeId == eventSearchDto.EventTypeId);
+                }
 
-            if (eventSearchDto.StartDate.HasValue)
+                query = query.Where(e => e.Date >= eventSearchDto.StartDate.Value && e.Date <= eventSearchDto.EndDate.Value);
+
+                var results = await query.ToListAsync();
+                return Ok(results);
+            }
+            else
             {
-                query = query.Where(e => e.Date >= eventSearchDto.StartDate.Value);
+                return Ok(new List<EventLog>());
             }
-
-            if (eventSearchDto.EndDate.HasValue)
-            {
-                query = query.Where(e => e.Date <= eventSearchDto.EndDate.Value);
-            }
-
-            return Ok(await query.ToListAsync());
         }
+
     }
 }
