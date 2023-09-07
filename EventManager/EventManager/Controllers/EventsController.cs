@@ -3,6 +3,7 @@ using EventManager.Application.Interfaces;
 using EventManager.Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations;
 
 namespace EventManager.Controllers
 {
@@ -59,23 +60,28 @@ namespace EventManager.Controllers
         /// <param name="endDate">Fecha final del rango (opcional).</param>
         /// <returns>Una lista de eventos que coinciden con los criterios de búsqueda.</returns>
         [HttpGet]
-        public async Task<IActionResult> GetEvents(int eventTypeId, DateTime? startDate, DateTime? endDate)
+        public async Task<IActionResult> GetEvents([FromQuery] EventSearchDto eventSearchDto)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
             var query = _repository.GetEvents();
 
-            if (eventTypeId > 0)
+            if (eventSearchDto.EventTypeId > 0)
             {
-                query = query.Where(e => e.EventTypeId == eventTypeId);
+                query = query.Where(e => e.EventTypeId == eventSearchDto.EventTypeId);
             }
 
-            if (startDate.HasValue)
+            if (eventSearchDto.StartDate.HasValue)
             {
-                query = query.Where(e => e.Date >= startDate.Value);
+                query = query.Where(e => e.Date >= eventSearchDto.StartDate.Value);
             }
 
-            if (endDate.HasValue)
+            if (eventSearchDto.EndDate.HasValue)
             {
-                query = query.Where(e => e.Date <= endDate.Value);
+                query = query.Where(e => e.Date <= eventSearchDto.EndDate.Value);
             }
 
             return Ok(await query.ToListAsync());
