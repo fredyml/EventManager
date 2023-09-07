@@ -1,8 +1,10 @@
 using EventManager.Application.Interfaces;
 using EventManager.Filters;
+using EventManager.Infrastructure.Logger;
 using EventManager.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
+using NLog.Web;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -23,8 +25,11 @@ builder.Services.AddScoped<IEventLogRepository, EventLogRepository>();
 
 builder.Services.AddControllers(options =>
 {
-    options.Filters.Add(new CustomExceptionFilter());
+    options.Filters.Add<CustomExceptionFilter>();
 });
+
+builder.Services.AddScoped<ILoggerManager, LoggerManager>();
+builder.Host.UseNLog();
 
 var app = builder.Build();
 

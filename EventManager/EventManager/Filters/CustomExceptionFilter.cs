@@ -1,16 +1,19 @@
 ﻿using EventManager.Domain.Exceptions;
-using Microsoft.AspNetCore.Mvc.Filters;
-using Microsoft.AspNetCore.Mvc;
 using EventManager.Infrastructure.Exceptions;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Filters;
 
 namespace EventManager.Filters
 {
     public class CustomExceptionFilter : IExceptionFilter
     {
         private readonly Dictionary<Type, IExceptionHandler> _exceptionHandlers;
+        private readonly ILogger<CustomExceptionFilter> _logger;
 
-        public CustomExceptionFilter()
+        public CustomExceptionFilter(ILogger<CustomExceptionFilter> logger)
         {
+            _logger = logger;
+
             _exceptionHandlers = new Dictionary<Type, IExceptionHandler>
             {
                 { typeof(InvalidOperationException), new InternalServerErrorExceptionHandler() },
@@ -33,6 +36,8 @@ namespace EventManager.Filters
                     StatusCode = StatusCodes.Status500InternalServerError,
                 };
             }
+
+            _logger.LogError(context.Exception.Message);
         }
     }
 }
